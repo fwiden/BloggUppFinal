@@ -1,0 +1,52 @@
+﻿.formpadding{
+    margin: 15px 0;
+}
+
+ .main { width: 100%; margin: auto
+        }
+
+ .Title{
+     font-size:20px;
+     text-decoration: none;
+     font-family: Verdana;
+
+ }
+
+ .vali{color:red;}
+
+ .myaction{padding-left:22px}
+
+ .mytable{
+     font-size:22px;
+ }
+
+ .hockeybild{width:222px;height:155px;opacity:0.20}
+ .minfooter{
+     background-color:#808080;
+     color:white;
+     border-radius: 7px;
+ }
+
+ .bild{margin-right: 15px}
+
+ .messegaTitleError,messegeBlogError{ margin-top:30px}
+
+ .minknapp{margin:10px;}
+
+ .jumbotron{
+     background-color:#808080;
+     color:white;
+ }
+
+ .minjumbo{
+
+     border-radius: 7px;
+ }
+
+ .myaction{color:red}
+
+ .Title{
+     background-color:#808080;
+     color:white;
+ }
+

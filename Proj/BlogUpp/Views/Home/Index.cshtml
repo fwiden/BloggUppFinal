@@ -1,0 +1,144 @@
+﻿@model BlogUpp.Models.Post
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>The Blog of Sports</title>
+   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />   
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />   
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>    
+    <script src="~/Scripts/jquery.validate.js"></script>   
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+</head>
+<body>
+
+    <div class="container jumbotron text-center minjumbo" > 
+        <p class="fred"><h1 class="text-center">- The Blog <code>of Sports</code> -</h1></p>
+        <p><h3 class="mainh3 text-right"><><><><><><></h3></p>
+    </div>
+        
+        <div class="container">                   
+       
+                             <!-- BUTTON NEW BLOGPOST -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div>
+                    <blockquote class="pull-left"><p>"I'm a dreamer. I have to dream and reach for the stars, and if I miss a star then I grab a handful of clouds."</p><p><small>Michael Tyson</small></p></blockquote>
+                </div>
+                <div class="container formpadding text-right">
+                    <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus minknapp"></span>New Blog Post</button>
+                </div>
+
+            </div>           
+        </div>
+        </div>
+                             <!-- LeftCOLUMN, SEARCH+LINKS -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 ">
+                        <div class="container">
+
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <div class="row">
+                                @Html.TextBoxFor(x => x.BlogTitle, new { @class = "form controll", @placeholder = "Enter blog title...." })
+                                <input class="btn-default" type="submit" value="Search">
+                            </div>                          
+                        }
+                        <div>
+                            <br />
+                            <table class="table-hover mytable">
+                                <thead>Sort by category:</thead>
+                                @foreach (var item in ViewBag.AllCat)
+                                {
+                                    <tr>
+                                        <td>@item.CategoryDescription</td>
+                                        <td>@Html.ActionLink("-->", "Sort", "Home", new { id = item.CategoryID }, new { @class = "myaction" }) </td>
+                                    </tr>  
+                                                                  
+                               }      
+                                <tr><td>Show All Blogs</td><td>@Html.ActionLink("-->", "Sort", "Home", new { id = 0 }, new { @class = "myaction" }) </td></tr>                          
+                            </table>
+
+
+                            <br />
+                            <br />
+                            <div >
+                                <img src="~/spezza-fantasy-hockey-whats-the-point-man.jpg" class="hockeybild" />
+                            </div>
+                        </div>
+                                    
+                    </div>
+                </div>
+                            <!-- RIGHTCOLUMN, LIST OF BLOGPOSTS -->
+                <div class="col-lg-8">                    
+                        @foreach (var item in ViewBag.AllPost)
+                        {
+                            <div class="well">
+                                <div class="post">
+                                    <div class="Title">
+                                        @item.BlogTitle
+                                    </div>
+                                    <div class="Desscription date">
+                                        <span class="label label-danger bild"> @item.Category.CategoryDescription </span><span class="glyphicon glyphicon-time "></span> @item.BlogPostedOn
+                                    </div>
+                                    <br />
+
+                                    <div class="post">
+                                        @item.BlogPost
+                                    </div>
+                                </div>
+                            </div>
+                        }                    
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Post a Blog and choose a Topic</h4>
+                        </div>
+                        <div class="modal-body">
+                        @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+                        {
+                         
+                         <div class="vali">@Html.ValidationMessageFor(x => x.BlogTitle)</div>
+                          <div class="formpadding">@Html.TextBoxFor(z => z.BlogTitle, new { @class = "form-control", @placeholder = "Enter Title..." })</div>
+
+                        <div class="vali">@Html.ValidationMessageFor(x => x.BlogPost)</div>
+                        <div class="formpadding">@Html.TextAreaFor(x => x.BlogPost, new { @class = "form-control", @placeholder = "Enter Blogpost....", @rows = "10" })  </div>
+                       
+
+                         <div class="formpadding">@Html.Label("Topic: ") @Html.DropDownList("Drop") </div> 
+                            
+                        <div class="modal-footer">
+                            <input id="Submit1" class="btn btn-success" type="submit" value="Submit & Close" />
+                        </div>
+                        }
+                         </div>
+                        </div>
+                </div>
+            </div>         
+
+    <footer class="container minfooter text-center">
+        <p>The Blog of Sports</p>
+    </footer>
+ 
+  
+   
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

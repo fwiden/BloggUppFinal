@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Post_Category" FromRole="Category" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="BlogID" />
+    </Key>
+    <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BlogTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="BlogPostedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BlogPost" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Post_Category" FromRole="Post" ToRole="Category" />
+  </EntityType>
+  <Association Name="FK_Post_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BlogConnection" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <AssociationSet Name="FK_Post_Category" Association="Self.FK_Post_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

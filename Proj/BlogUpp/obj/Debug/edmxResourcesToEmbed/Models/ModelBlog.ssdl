@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryDescription" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="BlogID" />
+    </Key>
+    <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BlogTitle" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="BlogPostedOn" Type="datetime" Nullable="false" />
+    <Property Name="BlogPost" Type="text" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Post_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BlogModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Post_Category" Association="Self.FK_Post_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Post" EntitySet="Post" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
